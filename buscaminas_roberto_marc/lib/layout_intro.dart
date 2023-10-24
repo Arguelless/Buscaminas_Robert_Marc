@@ -16,7 +16,7 @@ class LayoutIntroState extends State<LayoutIntro> {
 
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: const Text("Tres en ratlla"),
+        middle: const Text("Buscaminas"),
         trailing: CupertinoButton(
           padding: EdgeInsets.zero,
           child: const Icon(CupertinoIcons.gear_alt, size: 25.0),
@@ -32,7 +32,7 @@ class LayoutIntroState extends State<LayoutIntro> {
               child: Center(
             child: Padding(
               padding: EdgeInsets.all(20),
-              child: Icon(CupertinoIcons.game_controller, size: 100.0),
+              child: Icon(CupertinoIcons.flag, size: 100.0),
             ),
           )),
           Padding(

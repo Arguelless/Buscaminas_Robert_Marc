@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 class AppData with ChangeNotifier {
   // App status
-  String colorPlayer = "Verd";
-  String colorOpponent = "Taronja";
+  String midaTaulell = "petit";
+  String numeroMines = "5";
 
   List<List<String>> board = [];
   bool gameIsOver = false;
