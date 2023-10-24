@@ -138,4 +138,26 @@ class AppData with ChangeNotifier {
         );
     return completer.future;
   }
+
+  int calculateAdjacentMines(int row, int col) {
+    int adjacentMines = 0;
+
+    // Coordenadas de las celdas adyacentes
+    final List<int> dx = [-1, 0, 1, -1, 1, -1, 0, 1];
+    final List<int> dy = [-1, -1, -1, 0, 0, 1, 1, 1];
+
+    for (int i = 0; i < 8; i++) {
+      final int newRow = row + dy[i];
+      final int newCol = col + dx[i];
+
+      // Verifica si la celda adyacente está dentro de los límites del tablero
+      if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
+        if (grid[newRow][newCol].isMine) {
+          adjacentMines++;
+        }
+      }
+    }
+
+    return adjacentMines;
+  }
 }
