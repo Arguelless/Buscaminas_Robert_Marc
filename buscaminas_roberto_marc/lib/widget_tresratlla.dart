@@ -53,10 +53,10 @@ class WidgetTresRatllaState extends State<WidgetTresRatlla> {
               return GestureDetector(
                 onTapUp: (TapUpDetails details) {
                   final int row =
-                      (details.localPosition.dy / (context.size!.height / 3))
+                      (details.localPosition.dy / (context.size!.height / 6))
                           .floor();
                   final int col =
-                      (details.localPosition.dx / (context.size!.width / 3))
+                      (details.localPosition.dx / (context.size!.width / 6))
                           .floor();
 
                   appData.playMove(row, col);

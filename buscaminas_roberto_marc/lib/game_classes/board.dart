@@ -24,19 +24,17 @@ class Board {
   }
 
   void _placeMines() {
-    void _placeMines() {
-      final random = Random();
-      int minesPlaced = 0;
+    final random = Random();
+    int minesPlaced = 0;
 
-      while (minesPlaced < numMines) {
-        final row = random.nextInt(numRows);
-        final col = random.nextInt(numCols);
+    while (minesPlaced < numMines) {
+      final row = random.nextInt(numRows);
+      final col = random.nextInt(numCols);
 
-        // Verifica si la celda ya tiene una mina
-        if (!grid[row][col].isMine) {
-          grid[row][col].isMine = true;
-          minesPlaced++;
-        }
+      // Verifica si la celda ya tiene una mina
+      if (!grid[row][col].isMine) {
+        grid[row][col].isMine = true;
+        minesPlaced++;
       }
     }
   }

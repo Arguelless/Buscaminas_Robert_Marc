@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
+import 'game_classes/board.dart';
+
 class AppData with ChangeNotifier {
   // App status
   String midaTaulell = "petit";
@@ -14,6 +16,16 @@ class AppData with ChangeNotifier {
   ui.Image? imagePlayer;
   ui.Image? imageOpponent;
   bool imagesReady = false;
+
+  void setMidaTaulell(String value, String mines) {
+    if (value == "petit") {
+      final Board board =
+          Board(numRows: 9, numCols: 9, numMines: (int.parse(mines)));
+    } else if (value == "gran") {
+      final Board board =
+          Board(numRows: 15, numCols: 15, numMines: (int.parse(mines)));
+    }
+  }
 
   void resetGame() {
     board = [
@@ -138,7 +150,7 @@ class AppData with ChangeNotifier {
         );
     return completer.future;
   }
-
+/*
   int calculateAdjacentMines(int row, int col) {
     int adjacentMines = 0;
 
@@ -160,4 +172,28 @@ class AppData with ChangeNotifier {
 
     return adjacentMines;
   }
+
+  void revealCell(int row, int col) {
+    if (row < 0 || row >= numRows || col < 0 || col >= numCols) {
+      return; // Verifica si estamos dentro de los límites del tablero
+    }
+
+    Cell cell = board[row][col];
+
+    if (cell.isRevealed || cell.isFlagged || cell.isMine) {
+      return; // Evita revelar celdas ya reveladas, marcadas con bandera o con minas
+    }
+
+    cell.isRevealed = true;
+
+    if (cell.adjacentMines == 0) {
+      // Si la celda no tiene minas adyacentes, propagamos la revelación
+      for (int dr = -1; dr <= 1; dr++) {
+        for (int dc = -1; dc <= 1; dc++) {
+          revealCell(row + dr, col + dc);
+        }
+      }
+    }
+    
+  }*/
 }
