@@ -13,27 +13,40 @@ class WidgetTresRatllaPainter extends CustomPainter {
   void drawBoardLines(Canvas canvas, Size size) {
     final paint = Paint()
       ..color = Colors.black
-      ..strokeWidth = 5.0;
+      ..strokeWidth = 10.0;
+    final paint1 = Paint()
+      ..color = Colors.red
+      ..strokeWidth = 2.0;
 
     // Definim els punts on es creuaran les línies verticals
     final double firstVertical = size.width / 3;
     final double secondVertical = 2 * size.width / 3;
-
+    
     // Dibuixem les línies verticals
-    canvas.drawLine(
-        Offset(firstVertical, 0), Offset(firstVertical, size.height), paint);
-    canvas.drawLine(
-        Offset(secondVertical, 0), Offset(secondVertical, size.height), paint);
-
     // Definim els punts on es creuaran les línies horitzontals
     final double firstHorizontal = size.height / 3;
     final double secondHorizontal = 2 * size.height / 3;
 
     // Dibuixem les línies horitzontals
-    canvas.drawLine(
-        Offset(0, firstHorizontal), Offset(size.width, firstHorizontal), paint);
-    canvas.drawLine(Offset(0, secondHorizontal),
-        Offset(size.width, secondHorizontal), paint);
+  }
+
+  void drawcasilla(Canvas canvas, Size size){
+    int nivel = 8;
+    double espacio = 10;
+    
+    final paint = Paint()
+      ..color = Colors.red
+      ..strokeWidth = 5.0;
+
+      for (var i = 0; i < 8; i++) {
+        canvas.drawLine(Offset(0, 10+espacio), Offset(size.width, 10+espacio), paint);
+        espacio+= 20;
+      }
+
+      for (var i = 0; i < 8; i++) {
+        canvas.drawLine(Offset( 10+espacio, 0), Offset(10+espacio, size.height), paint);
+        espacio+= 20;
+      }
   }
 
   // Dibuixa la imatge centrada a una casella del taulell
@@ -197,6 +210,7 @@ class WidgetTresRatllaPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     drawBoardLines(canvas, size);
     drawBoardStatus(canvas, size);
+    drawcasilla(canvas, size);
     if (appData.gameWinner != '-') {
       drawGameOver(canvas, size);
     }

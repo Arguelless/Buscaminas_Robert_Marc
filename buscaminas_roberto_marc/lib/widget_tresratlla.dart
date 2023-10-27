@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app_data.dart';
 import 'widget_tresratlla_painter.dart';
@@ -13,6 +14,10 @@ class WidgetTresRatlla extends StatefulWidget {
 class WidgetTresRatllaState extends State<WidgetTresRatlla> {
   Future<void>? _loadImagesFuture;
 
+  double medidadecuadrado = 30;
+  double cuadradosancho = 15;
+  double cuadradosalto = 15;
+
   // Al iniciar el widget, carrega les imatges
   @override
   void initState() {
@@ -25,58 +30,55 @@ class WidgetTresRatllaState extends State<WidgetTresRatlla> {
 
   @override
   Widget build(BuildContext context) {
-    AppData appData = Provider.of<AppData>(context);
-
-    return GestureDetector(
-      onTapUp: (TapUpDetails details) {
-        final int row =
-            (details.localPosition.dy / (context.size!.height / 3)).floor();
-        final int col =
-            (details.localPosition.dx / (context.size!.width / 3)).floor();
-
-        appData.playMove(row, col);
-        setState(() {}); // Actualitza la vista
-      },
-      child: SizedBox(
-        width: MediaQuery.of(context)
-            .size
-            .width, // Ocupa tot l'ample de la pantalla
-        height: MediaQuery.of(context).size.height -
-            56.0, // Ocupa tota l'altura disponible menys l'altura de l'AppBar
-        child: FutureBuilder(
-          // Segons si les imatges estan disponibles mostra un progrés o el joc
-          future: _loadImagesFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState != ConnectionState.done) {
-              return const CupertinoActivityIndicator();
-            } else {
-              return GestureDetector(
-                onTapUp: (TapUpDetails details) {
-                  final int row =
-                      (details.localPosition.dy / (context.size!.height / 3))
-                          .floor();
-                  final int col =
-                      (details.localPosition.dx / (context.size!.width / 3))
-                          .floor();
-
-                  appData.playMove(row, col);
-                  setState(() {}); // Actualitza la vista
-                },
-                child: SizedBox(
-                  width: MediaQuery.of(context)
-                      .size
-                      .width, // Ocupa tot l'ample de la pantalla
-                  height: MediaQuery.of(context).size.height -
-                      56.0, // Ocupa tota l'altura disponible menys l'altura de l'AppBar
-                  child: CustomPaint(
-                    painter: WidgetTresRatllaPainter(appData),
-                  ),
-                ),
-              );
-            }
-          },
-        ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: (Center(
+            child: Container(
+          width: medidadecuadrado * cuadradosancho,
+          height: medidadecuadrado * cuadradosalto,
+          color: Colors.blue,
+          child: MyGridlist(),
+        ))),
       ),
+    );
+  }
+}
+
+class MyGridlist extends StatelessWidget {
+  int tamanyo = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+        crossAxisCount: 2, // Número de columnas en el grid
+        children:  List.generate(tamanyo, (index) {
+          return Container(
+            margin: EdgeInsets.all(2),
+            color: Colors.green,
+            child: MyGrid(),
+          );
+        }));
+  }
+}
+
+class MyGrid extends StatelessWidget {
+  int tamanyo = 15;
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      crossAxisCount: tamanyo, // Número de columnas en el grid
+      children: List.generate(, (index) {
+        return Container(
+          margin: EdgeInsets.all(2),
+          color: Colors.red,
+          height: 100.0,
+          child: Center(
+            child:
+                Text('Elemento $index', style: TextStyle(color: Colors.white)),
+          ),
+        );
+      }),
     );
   }
 }
